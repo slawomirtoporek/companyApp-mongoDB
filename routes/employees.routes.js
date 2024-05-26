@@ -28,14 +28,14 @@ router.get('/employees/random', (req, res) => {
 
 router.get('/employees/:id', (req, res) => {
   req.db.collection('employees')
-  .findOne({ _id: ObjectId(req.params.id) })
-  .then((data) => {
-    if(!data) res.status(404).json({ message: 'Not found' });
-    else res.json(data);
-  })
-  .catch((err) => {
-    res.status(500).json({ message: err });
-  });
+    .findOne({ _id: ObjectId(req.params.id) })
+    .then((data) => {
+      if(!data) res.status(404).json({ message: 'Not found' });
+      else res.json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err });
+    });
 });
 
 router.post('/employees', (req, res) => {
