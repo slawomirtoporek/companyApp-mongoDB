@@ -42,6 +42,22 @@ describe('Employee', () => {
     }
   });
 
+  it('should throw an error if department is not a string', () => {
+    const cases = [
+        {firstName: 'John', lastName: 'Doe', department: []},
+        {firstName: 'John', lastName: 'Doe', department: {}},
+    ];
+
+    for(let dataDepartment of cases) {
+      const emp = new Employee(dataDepartment);
+
+      emp.validateSync(err => {
+        expect(error).to.exist;
+      });  
+    }
+  });
+
+
   after(() => {
     mongoose.models = {};
   });
