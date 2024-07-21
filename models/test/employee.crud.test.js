@@ -95,6 +95,33 @@ describe('Employee', () => {
     });  
   });
 
+  describe('Removing data', () => {
+
+    beforeEach(async () => {
+      const testEmpOne = new Employee({ firstName:'Amanda', lastName: 'Doe', department: 'marketing' });
+      await testEmpOne.save();
+
+      const testEmpTwo = new Employee({ firstName:'Emma', lastName: 'Cowell', department: 'marketing' });
+      await testEmpTwo.save();
+    });
+
+    it('should properly remove one document with "deleteOne" method', async () => {
+      await Employee.deleteOne({ firstName:'Amanda' });
+      const removeEmployee = await Employee.findOne({ firstName:'Amanda' });
+      expect(removeEmployee).to.be.null;
+    });
+
+    it('should properly remove multiple documents with "deleteMany" method', async () => {
+      await Employee.deleteMany();
+      const employee = await Employee.find();
+      expect(employee.length).to.be.equal(0);
+    });
+
+    afterEach(async () => {
+      await Employee.deleteMany();
+    });
+  });
+
   after(() => {
     mongoose.models = {};
   });
