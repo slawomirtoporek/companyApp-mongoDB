@@ -41,6 +41,19 @@ describe('Employee', () => {
       });
 });
 
+describe('Creating data', () => {
+
+  it('should insert new document with "insertOne" method', async () => {
+    const employee = new Employee({ firstName:'Amanda', lastName: 'Doe', department: 'marketing' });
+    await employee.save();
+    expect(employee.isNew).to.be.false;
+  });
+
+  after(async () => {
+    await Employee.deleteMany();
+  });
+});
+
   after(() => {
     mongoose.models = {};
   });
