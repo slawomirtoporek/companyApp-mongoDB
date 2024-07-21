@@ -22,7 +22,7 @@ describe('Employee', () => {
       const emp = new Employee(dataFirstName);
 
       emp.validateSync(err => {
-        expect(error).to.exist;
+        expect(err).to.exist;
       });  
     }
   });
@@ -37,7 +37,7 @@ describe('Employee', () => {
       const emp = new Employee(dataLastName);
 
       emp.validateSync(err => {
-        expect(error).to.exist;
+        expect(err).to.exist;
       });  
     }
   });
@@ -52,10 +52,18 @@ describe('Employee', () => {
       const emp = new Employee(dataDepartment);
 
       emp.validateSync(err => {
-        expect(error).to.exist;
+        expect(err).to.exist;
       });  
     }
   });
+
+  it('should not throw an error if data is okay', () => {
+    const emp = new Employee({firstName: 'John', lastName: 'Doe ', department: 'marketing'})
+
+    emp.validateSync(err => {
+      expect(err).to.not.exist;
+    });  
+});
 
 
   after(() => {
