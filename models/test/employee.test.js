@@ -27,6 +27,21 @@ describe('Employee', () => {
     }
   });
 
+  it('should throw an error if lastName is not a string', () => {
+    const cases = [
+        {firstName: 'John', lastName: [], department: 'marketing'},
+        {firstName: 'John', lastName: {}, department: 'marketing'},
+    ];
+
+    for(let dataLastName of cases) {
+      const emp = new Employee(dataLastName);
+
+      emp.validateSync(err => {
+        expect(error).to.exist;
+      });  
+    }
+  });
+
   after(() => {
     mongoose.models = {};
   });
